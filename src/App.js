@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-// import './App.css';
 import { BrowserRouter as Router, Link, NavLink, Redirect, Prompt} from 'react-router-dom';
 import Route from 'react-router-dom/Route';
+import { connect } from "react-redux";
 import TopNav from "./containers/top_nav";
 import TopicPage from './containers/topic_page'
-
-const User = ({match}) => {
-  return ( <h1> Welcome User {match.params.username} </h1>)
-}
+import * as actionCreator from "./store/actions/actions";
 
 class App extends Component {
     constructor(props) {
@@ -23,18 +20,8 @@ class App extends Component {
     }
 
     componentDidMount() {
-        let url = 'http://127.0.0.1:8000/api/categories';
-        fetch(url)
-            .then( response => response.json())
-            .then(cats => {
-                let allTopics = cats.map(cat => {
-                    return {topics: cat.topics, catName: cat.name}
-                });
-                let categories = cats.map(cat => cat.name);
-                // let activeCategory = categories.includes('Python') ? 'Python' : categories[0] || '';
-                this.setState({categories, allTopics},
-                    this.topicsByCategory)
-            })}
+        this.props.setCategories()
+        }
 
     getTopicSegments() {
         // let url = `http://127.0.0.1:8000/api/topics/${this.state.activeTopic}`;
@@ -65,6 +52,7 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.state.categories)
       return (
         <Router>
         <div className="App">
@@ -96,5 +84,19 @@ class App extends Component {
   }
 }
 
-export default App;
-// render={(props) => <TopicPage {...props} isAuthed={true} />}
+const mapStateToProps = state => {
+    return {
+        categories: state.categories,
+        allTopics: state.allTopics
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setCategories: () => dispatch(actionCreator.setCategories()),
+    };
+};
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);

@@ -1,33 +1,32 @@
 import { MarkdownPreview } from 'react-marked-markdown';
 import React from 'react';
-import { Navbar } from 'reactstrap';
-
+import { connect } from "react-redux";
+import * as actionCreator from "../store/actions/actions";
 
 class TopicPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            mdContent: '',
-        };
-    }
 
     componentDidMount() {
-        this.getMarkdownContent();
-    }
-
-    getMarkdownContent() {
-        let url = 'http://127.0.0.1:8000/api/topics/generators';
-        let mdContent = '';
-        fetch(url)
-            .then(response => response.json())
-            .then(obj => {
-                obj.forEach(obj => mdContent = mdContent + obj.content)
-                this.setState({mdContent})});
+        this.props.getMarkdownContent(this.props.match.params.slug);
     }
 
     render() {
-        return <MarkdownPreview value={this.state.mdContent}/>
+        return <MarkdownPreview value={this.props.mdContent}/>
     }
 }
 
-export default TopicPage;
+const mapStateToProps = state => {
+    return {
+        mdContent: state.mdContent,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getMarkdownContent: (slug) => dispatch(actionCreator.getMarkdownContent(slug)),
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TopicPage);
