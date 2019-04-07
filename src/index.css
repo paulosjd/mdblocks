@@ -13,7 +13,9 @@ img {
   margin-bottom: 0;
   height: 45px
 }
-
+.homepage {
+  margin-top: 20px;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
   monospace;
@@ -21,6 +23,13 @@ code {
 .table {
   width: 260px;
   margin-left: 20px;
+}
+.category_logo, .category_label {
+  display: inline-block;
+}
+.category_logo {
+  height: 50px;
+  width: 50px;
 }
 #pm10_header {
   width: 86px;

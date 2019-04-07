@@ -10,12 +10,10 @@ import {connect} from "react-redux";
 class TopNav extends Component {
 
     handleTopicSelection(topic) {
-        console.log(topic)
         this.props.setTopic(topic);
     }
 
     handleCategorySelection(category) {
-        console.log(category)
         this.props.setCategory(category);
         this.props.topicsByCategory()
     }
@@ -24,6 +22,9 @@ class TopNav extends Component {
         const catOptions = this.props.categories.map(cat => {
             return {name: cat, slug: cat.toLowerCase().replace(' ', '_')}
         });
+
+        // ROUTER SELECT OPTION NAVBAR LIKE LINKS
+
         return (
             <Navbar color="light" light expand="md">
                 <li>
