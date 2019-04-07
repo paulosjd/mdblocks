@@ -3,14 +3,21 @@ import { BrowserRouter as Router, Link, NavLink, Redirect, Prompt} from 'react-r
 import Route from 'react-router-dom/Route';
 import { Navbar } from 'reactstrap';
 import NavDropdownSelect from "../components/nav_dropdown_select"
+import * as actionCreator from "../store/actions/actions";
+import {connect} from "react-redux";
 
 
 class TopNav extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            foo: 3
-        };
+
+    handleTopicSelection(topic) {
+        console.log(topic)
+        this.props.setTopic(topic);
+    }
+
+    handleCategorySelection(category) {
+        console.log(category)
+        this.props.setCategory(category);
+        this.props.topicsByCategory()
     }
 
     render() {
@@ -42,16 +49,37 @@ class TopNav extends Component {
                 <NavDropdownSelect
                     selectedOption={this.props.activeCategory}
                     options={catOptions}
-                    handleSelection={this.props.handleCategorySelection}
+                    handleSelection={this.handleCategorySelection.bind(this)}
                 />
                 <NavDropdownSelect
                     selectedOption={this.props.activeTopic}
                     options={this.props.topics}
-                    handleSelection={this.props.handleTopicSelection}
+                    handleSelection={this.handleTopicSelection.bind(this)}
                 />
             </Navbar>
         );
     }
 }
 
-export default TopNav;
+const mapStateToProps = state => {
+    return {
+        categories: state.categories,
+        allTopics: state.allTopics,
+        filteredTopics: state.filteredTopics,
+        activeTopic: state.activeTopic,
+        activeCategory: state.activeCategory,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setTopic: (val) => dispatch(actionCreator.setTopic(val)),
+        setCategory: (val) => dispatch(actionCreator.setCategory(val)),
+        topicsByCategory: () => dispatch(actionCreator.topicsByCategory()),
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TopNav);

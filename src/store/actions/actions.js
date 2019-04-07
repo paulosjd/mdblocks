@@ -27,6 +27,17 @@ export const getMarkdownContent = (slug) => {
     };
 };
 
+export const setTopic = (val) => {
+    return { type: "SET_TOPIC", value: val };
+};
+
+export const topicsByCategory = () => {
+    return {type: "CAT_TOPICS" }
+};
+
+export const setCategory = (val) => {
+    return { type: "SET_CATEGORY", value: val };
+};
 
 export const loading = () => {
     return {

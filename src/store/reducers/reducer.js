@@ -1,5 +1,4 @@
 const initialState = {
-    topicSegments: '',
     categories: [],
     activeCategory: '',
     allTopics: [],
@@ -15,9 +14,18 @@ const rootReducer = (state = initialState, action) => {
             newState.categories = action.value.categories;
             newState.allTopics = action.value.allTopics;
             break;
+        case "CAT_TOPICS":
+            const filtered = newState.allTopics.filter(
+                topic => topic.catName === newState.activeCategory);
+            newState.filteredTopics = filtered.topics ? filtered.topics :[];
+            break;
+        case "SET_TOPIC":
+            newState.activeTopic = action.value;
+            break;
+        case "SET_CATEGORY":
+            newState.activeCategory = action.value;
+            break;
         case "MD_CONTENT":
-            console.log(action)
-            console.log(action.value)
             newState.mdContent = action.value;
             break;
     }
