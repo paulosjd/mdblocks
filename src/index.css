@@ -14,11 +14,20 @@ img {
   height: 45px
 }
 .homepage {
-  margin-top: 20px;
+  margin-top: 16px;
+}
+ul.list-group {
+  margin-top: 15px;
+}
+.topic_page {
+  padding:16px 16px;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
   monospace;
+}
+h2 {
+  font-size: 1.6rem !important;
 }
 .table {
   width: 260px;
@@ -27,9 +36,22 @@ code {
 .category_logo, .category_label {
   display: inline-block;
 }
+.category_label {
+  margin-left: 24px;
+}
 .category_logo {
   height: 50px;
-  width: 50px;
+  width: auto;
+}
+.list-group-item {
+  cursor: default !important;
+}
+.list-group-item.active {
+  background-color: #ffe690 !important;
+}
+.cats {
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
 }
 #pm10_header {
   width: 86px;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, NavLink, Redirect, Prompt} from 'react-router-dom';
 import Route from 'react-router-dom/Route';
 import { connect } from "react-redux";
-import Home from "./containers/home"
+import CategoriesIndex from "./containers/categories_index"
 import TopNav from "./containers/top_nav";
 import TopicPage from './containers/topic_page'
 import * as actionCreator from "./store/actions/actions";
@@ -17,9 +17,9 @@ class App extends Component {
       return (
         <Router>
         <div className="App">
-            <TopNav/>
+            <TopNav />
             <Route path="/" exact strict
-                   render={(props) => <Home {...props} />}
+                   render={(props) => <CategoriesIndex {...props} />}
             />
             <Route path="/about" exact strict render={
               () => {

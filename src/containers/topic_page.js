@@ -2,15 +2,22 @@ import { MarkdownPreview } from 'react-marked-markdown';
 import React from 'react';
 import { connect } from "react-redux";
 import * as actionCreator from "../store/actions/actions";
+import Route from "../App";
 
 class TopicPage extends React.Component {
 
     componentDidMount() {
-        this.props.getMarkdownContent(this.props.match.params.slug);
+        const slug = this.props.match.params.slug;
+        this.props.setTopicFromSlug(slug);
+        this.props.getMarkdownContent(slug);
     }
 
     render() {
-        return <MarkdownPreview value={this.props.mdContent}/>
+        return (
+            <div className='topic_page'>
+            <MarkdownPreview value={this.props.mdContent}/>
+            </div>
+        )
     }
 }
 
@@ -23,6 +30,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getMarkdownContent: (slug) => dispatch(actionCreator.getMarkdownContent(slug)),
+        setTopicFromSlug: (slug) => dispatch(actionCreator.setTopicFromSlug(slug)),
     };
 };
 

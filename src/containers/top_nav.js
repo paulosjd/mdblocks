@@ -19,10 +19,19 @@ class TopNav extends Component {
     }
 
     render() {
+        console.log(this.props.topicName)
+
         const catOptions = this.props.categories.map(cat => {
             return {name: cat, slug: cat.toLowerCase().replace(' ', '_')}
         });
 
+        const topicSelect = () => {
+            if (this.props.topicName) {
+                return <NavDropdownSelect
+                    selectedOption={this.props.topicName}
+                    options={this.props.filteredTopics}
+                    handleSelection={this.handleTopicSelection.bind(this)}/>
+        }};
         // ROUTER SELECT OPTION NAVBAR LIKE LINKS
 
         return (
@@ -52,11 +61,7 @@ class TopNav extends Component {
                     options={catOptions}
                     handleSelection={this.handleCategorySelection.bind(this)}
                 />
-                <NavDropdownSelect
-                    selectedOption={this.props.activeTopic}
-                    options={this.props.topics}
-                    handleSelection={this.handleTopicSelection.bind(this)}
-                />
+                {topicSelect()}
             </Navbar>
         );
     }
@@ -64,10 +69,10 @@ class TopNav extends Component {
 
 const mapStateToProps = state => {
     return {
+        topicName: state.topicName,
         categories: state.categories,
         allTopics: state.allTopics,
         filteredTopics: state.filteredTopics,
-        activeTopic: state.activeTopic,
         activeCategory: state.activeCategory,
     };
 };

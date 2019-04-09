@@ -8,7 +8,8 @@ export const setCategories = () => {
                     return {topics: cat.topics, catName: cat.name}
                 });
                 let categories = cats.map(cat => cat.name);
-                dispatch({type: 'SET_CATEGORIES', value: {categories, allTopics}})
+                dispatch({type: 'SET_CATEGORIES', value: {categories, allTopics}}),
+                dispatch({type: 'CAT_TOPICS'})
             })
     }
 };
@@ -16,7 +17,6 @@ export const setCategories = () => {
 export const getMarkdownContent = (slug) => {
     let url = 'http://127.0.0.1:8000/api/topics/' + slug;
     let mdContent = '';
-    console.log(url)
     return dispatch => {
         fetch(url)
             .then(response => response.json())
@@ -25,6 +25,10 @@ export const getMarkdownContent = (slug) => {
                 dispatch({type: 'MD_CONTENT', value: mdContent})
             })
     };
+};
+
+export const setTopicFromSlug = (slug) => {
+    return { type: "TOPIC_FROM_SLUG", value: slug };
 };
 
 export const setTopic = (val) => {
