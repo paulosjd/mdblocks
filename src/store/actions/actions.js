@@ -35,8 +35,16 @@ export const setTopic = (val) => {
     return { type: "SET_TOPIC", value: val };
 };
 
+export const showTopicPlaceholder = () => {
+    return { type: "SHOW_TOPIC_PLACEHOLDER" };
+};
+
 export const topicsByCategory = () => {
-    return {type: "CAT_TOPICS" }
+    return { type: "CAT_TOPICS" }
+};
+
+export const setPathname = () => {
+    return { type: "SET_PATHNAME" }
 };
 
 export const setCategory = (val) => {
@@ -48,12 +56,4 @@ export const loading = () => {
         type: "LOADING"
     };
 };
-
-
-export const ageDown = val => {
-    return { type: "AGE_DOWN", value: val };
-};
-
-
-
 

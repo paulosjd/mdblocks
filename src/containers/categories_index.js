@@ -6,18 +6,18 @@ import CategoryItemContent from "../components/category_item_content"
 
 class CategoriesIndex extends Component {
 
-    // handleTopicSelection(topic) {
-    //     this.props.setTopic(topic);
-    // }
-    //
+    componentDidMount() {
+        this.props.setPathname()
+    }
+
     handleCategorySelection(catName) {
-        console.log(catName)
         this.props.setCategory(catName);
         this.props.topicsByCategory()
     }
 
     render() {
-        console.log(this.props.filteredTopics)
+        console.log(this.props.pathname)
+
         return (
             <div className='CategoriesIndexpage' >
             <Container>
@@ -43,7 +43,7 @@ class CategoriesIndex extends Component {
                         return (
                             <ListGroupItem
                                 tag="a" href={'/topics/' + obj.slug} key={ind}
-                                active={this.props.activeTopic === obj.name} action
+                                active={this.props.topicName === obj.name} action
                             >{obj.name}
                             </ListGroupItem>)
                     })}
@@ -61,8 +61,9 @@ const mapStateToProps = state => {
         categories: state.categories,
         allTopics: state.allTopics,
         filteredTopics: state.filteredTopics,
-        activeTopic: state.activeTopic,
         activeCategory: state.activeCategory,
+        topicName: state.topicName,
+        pathname: state.pathname,
     };
 };
 
@@ -71,6 +72,7 @@ const mapDispatchToProps = dispatch => {
         setTopic: (val) => dispatch(actionCreator.setTopic(val)),
         setCategory: (val) => dispatch(actionCreator.setCategory(val)),
         topicsByCategory: () => dispatch(actionCreator.topicsByCategory()),
+        setPathname: () => dispatch(actionCreator.setPathname())
     };
 };
 

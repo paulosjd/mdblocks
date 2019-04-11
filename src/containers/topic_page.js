@@ -2,7 +2,6 @@ import { MarkdownPreview } from 'react-marked-markdown';
 import React from 'react';
 import { connect } from "react-redux";
 import * as actionCreator from "../store/actions/actions";
-import Route from "../App";
 
 class TopicPage extends React.Component {
 
@@ -10,6 +9,13 @@ class TopicPage extends React.Component {
         const slug = this.props.match.params.slug;
         this.props.setTopicFromSlug(slug);
         this.props.getMarkdownContent(slug);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.topicSlug !== this.props.topicSlug) {
+            console.log('did upate!!')
+            this.props.getMarkdownContent(this.props.topicSlug)
+        }
     }
 
     render() {
@@ -24,6 +30,7 @@ class TopicPage extends React.Component {
 const mapStateToProps = state => {
     return {
         mdContent: state.mdContent,
+        topicSlug: state.topicSlug,
     };
 };
 

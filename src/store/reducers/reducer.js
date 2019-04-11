@@ -3,15 +3,15 @@ const initialState = {
     activeCategory: 'Python',
     allTopics: [],
     filteredTopics: [],
-    activeTopic: '',
     mdContent: '',
     topicName: '',
     topicSlug: '',
+    showTopicPlaceholder: false,
+    pathname: 'window.location.pathname'
 };
 
 const rootReducer = (state = initialState, action) => {
     const newState = { ...state };
-    console.log(newState.allTopics)
     switch (action.type) {
         case "SET_CATEGORIES":
             newState.categories = action.value.categories;
@@ -23,7 +23,14 @@ const rootReducer = (state = initialState, action) => {
             newState.filteredTopics = newState.allTopics[catIndex].topics;
             break;
         case "SET_TOPIC":
-            newState.activeTopic = action.value;
+            newState.topicName = action.value.topicName;
+            newState.allTopics = action.value.allTopics;
+            setSlugFromTopic(newState);
+            setCategoryFromTopic(newState);
+            newState.pathname = window.location.pathname;
+            break;
+        case "SET_PATHNAME":
+            newState.pathname = window.location.pathname;
             break;
         case "TOPIC_FROM_SLUG":
             newState.topicSlug = action.value;
@@ -34,18 +41,36 @@ const rootReducer = (state = initialState, action) => {
         case "MD_CONTENT":
             newState.mdContent = action.value;
             break;
+        case "SHOW_TOPIC_PLACEHOLDER":
+            newState.showTopicPlaceholder = true;
     }
     if (newState.topicSlug && newState.allTopics.length > 0 && !newState.topicName) {
-        let topics = newState.allTopics.map(x => x.topics).flat()
-        let ind = topics.findIndex(
-            x => x.slug === newState.topicSlug);
-        newState.topicName = topics[ind].name
-        newState.allTopics.forEach(obj => {if (obj.topics.map(x => x.slug).includes(newState.topicSlug)){
-            newState.activeCategory = obj.catName
-        }})
-        console.log(newState.activeCategory)
+        setTopicFromSlug(newState)
     }
     return newState;
 };
+
+
+const setTopicFromSlug = (newState) => {
+    let topics = newState.allTopics.map(x => x.topics).flat();
+    let ind = topics.findIndex(
+        x => x.slug === newState.topicSlug);
+    newState.topicName = topics[ind].name;
+    setCategoryFromTopic(newState)
+};
+
+const setSlugFromTopic = (newState) => {
+    let topics = newState.allTopics.map(x => x.topics).flat();
+    let ind = topics.findIndex(
+        x => x.name === newState.topicName);
+    newState.topicSlug = topics[ind].slug;
+};
+
+const setCategoryFromTopic = (newState) => {
+    newState.allTopics.forEach(obj => {if (obj.topics.map(x => x.slug).includes(newState.topicSlug)){
+        newState.activeCategory = obj.catName
+    }})
+};
+
 
 export default rootReducer;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, NavLink, Redirect, Prompt} from 'react-router-dom';
+import { BrowserRouter, Link, NavLink, Redirect, Prompt} from 'react-router-dom';
 import Route from 'react-router-dom/Route';
 import { connect } from "react-redux";
 import CategoriesIndex from "./containers/categories_index"
@@ -15,7 +15,7 @@ class App extends Component {
 
     render() {
       return (
-        <Router>
+        <BrowserRouter >
         <div className="App">
             <TopNav />
             <Route path="/" exact strict
@@ -31,7 +31,7 @@ class App extends Component {
                 render={(props) => <TopicPage {...props} />}
             />
         </div>
-      </Router>
+      </BrowserRouter>
     );
   }
 }
@@ -41,7 +41,6 @@ const mapStateToProps = state => {
         categories: state.categories,
         allTopics: state.allTopics,
         filteredTopics: state.filteredTopics,
-        activeTopic: state.activeTopic,
         activeCategory: state.activeCategory,
     };
 };
