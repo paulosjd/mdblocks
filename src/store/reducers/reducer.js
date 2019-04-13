@@ -6,7 +6,6 @@ const initialState = {
     mdContent: '',
     topicName: '',
     topicSlug: '',
-    showTopicPlaceholder: false,
     pathname: 'window.location.pathname'
 };
 
@@ -41,15 +40,12 @@ const rootReducer = (state = initialState, action) => {
         case "MD_CONTENT":
             newState.mdContent = action.value;
             break;
-        case "SHOW_TOPIC_PLACEHOLDER":
-            newState.showTopicPlaceholder = true;
     }
     if (newState.topicSlug && newState.allTopics.length > 0 && !newState.topicName) {
         setTopicFromSlug(newState)
     }
     return newState;
 };
-
 
 const setTopicFromSlug = (newState) => {
     let topics = newState.allTopics.map(x => x.topics).flat();

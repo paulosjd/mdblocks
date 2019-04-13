@@ -8,7 +8,7 @@ export const setCategories = () => {
                     return {topics: cat.topics, catName: cat.name}
                 });
                 let categories = cats.map(cat => cat.name);
-                dispatch({type: 'SET_CATEGORIES', value: {categories, allTopics}}),
+                dispatch({type: 'SET_CATEGORIES', value: {categories, allTopics}});
                 dispatch({type: 'CAT_TOPICS'})
             })
     }
@@ -33,10 +33,6 @@ export const setTopicFromSlug = (slug) => {
 
 export const setTopic = (val) => {
     return { type: "SET_TOPIC", value: val };
-};
-
-export const showTopicPlaceholder = () => {
-    return { type: "SHOW_TOPIC_PLACEHOLDER" };
 };
 
 export const topicsByCategory = () => {
