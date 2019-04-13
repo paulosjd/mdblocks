@@ -3,22 +3,24 @@ import {Button} from "reactstrap";
 
 const TextSearchInput = (props) => {
 
-    const handleFilterTextChange = (e) => {
-        props.onFilterTextChange(e.target.value, 'text_filter')
+    const handleTextChange = (e) => {
+        props.handleTextChange(e.target.value)
     };
 
-    const handleInputBlur = () => {
-        props.resetTextInput()
+    const handleInputBlur = (e) => {
+        if (!e.target || e.target.className !== 'text_filter_input') {
+            props.resetTextInput();
+        }
     };
 
     return <React.Fragment>
     <input name='text_filter' type="text" placeholder="Enter text"
            className='text_filter_input'
-        // value={props.filterText}
-        // onChange={handleFilterTextChange.bind(this)}
-        // onBlur={handleInputBlur.bind(this)}
+           value={props.textInput}
+           onChange={handleTextChange}
+           onBlur={handleInputBlur}
     />
-    <Button className='text_filter_submit' >Search</Button>
+    <Button disabled={props.textInput.length < 3} className='text_filter_submit' onClick={props.handleTextSubmit}>Search</Button>
     </React.Fragment>
 };
 

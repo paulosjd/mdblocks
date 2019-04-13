@@ -6,6 +6,7 @@ const initialState = {
     mdContent: '',
     topicName: '',
     topicSlug: '',
+    textInput: '',
     pathname: 'window.location.pathname'
 };
 
@@ -39,6 +40,11 @@ const rootReducer = (state = initialState, action) => {
             break;
         case "MD_CONTENT":
             newState.mdContent = action.value;
+            break;
+        case "SET_TEXT_INPUT":
+            newState.textInput = action.value;
+            break;
+        default:
             break;
     }
     if (newState.topicSlug && newState.allTopics.length > 0 && !newState.topicName) {

@@ -47,6 +47,10 @@ export const setCategory = (val) => {
     return { type: "SET_CATEGORY", value: val };
 };
 
+export const setTextInput = (val) => {
+    return { type: 'SET_TEXT_INPUT', value: val}
+};
+
 export const loading = () => {
     return {
         type: "LOADING"

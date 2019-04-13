@@ -8,6 +8,18 @@ import TextSearch from "../components/text_search"
 
 class TopNav extends Component {
 
+    handleTextInput(text) {
+        this.props.setTextInput(text.trim())
+    }
+
+    handleTextSubmit() {
+        console.log(this.props.textInput)
+    }
+
+    resetTextInput() {
+        this.props.setTextInput('')
+    }
+
     handleTopicSelection(topic) {
         this.props.setTopic({topicName: topic, allTopics: this.props.allTopics});
         this.props.setPathname()
@@ -19,7 +31,6 @@ class TopNav extends Component {
     }
 
     render() {
-
         const catOptions = this.props.categories.map(cat => {
             return {name: cat, slug: cat.toLowerCase().replace(' ', '_')}
         });
@@ -34,7 +45,13 @@ class TopNav extends Component {
             }
         };
 
-        const textSearch = <TextSearch />;
+        const textSearch = (
+            <TextSearch
+                handleTextChange={this.handleTextInput.bind(this)}
+                handleTextSubmit={this.handleTextSubmit.bind(this)}
+                resetTextInput={this.resetTextInput.bind(this)}
+                textInput={this.props.textInput}
+            />);
 
         if (this.props.pathname !== '/') {
             return (
@@ -51,9 +68,7 @@ class TopNav extends Component {
                         handleSelection={this.handleCategorySelection.bind(this)}
                     />
                     {topicSelect()}
-                    <Link className="nav_link_index" to="/" exact activeStyle={
-                        { color:'green' }
-                    }>Index</Link>
+                    <Link className="nav_link_index" to="/" exact='true' >Index</Link>
                     {textSearch}
                 </Navbar>
             )
@@ -72,7 +87,8 @@ const mapStateToProps = state => {
         allTopics: state.allTopics,
         filteredTopics: state.filteredTopics,
         activeCategory: state.activeCategory,
-        pathname: state.pathname
+        pathname: state.pathname,
+        textInput: state.textInput,
     };
 };
 
@@ -82,7 +98,8 @@ const mapDispatchToProps = dispatch => {
         setCategory: (val) => dispatch(actionCreator.setCategory(val)),
         topicsByCategory: () => dispatch(actionCreator.topicsByCategory()),
         setTopicFromSlug: (slug) => dispatch(actionCreator.setTopicFromSlug(slug)),
-        setPathname: () => dispatch(actionCreator.setPathname())
+        setPathname: () => dispatch(actionCreator.setPathname()),
+        setTextInput: (val) => dispatch(actionCreator.setTextInput(val)),
     };
 };
 

@@ -10,10 +10,7 @@ export default (props) => {
     if (isDiffCategory && optionNames.length > 0) {
         const maxNameLen = Math.max(...optionNames.map(x => x.length));
         addLen = (maxNameLen * 4);
-    } else {
-        addLen = props.selectedOption ? props.selectedOption.length * 4 : 20;
-    }
-    console.log('addLen: ' + addLen)
+    } else addLen = props.selectedOption ? props.selectedOption.length * 4 : 20;
     const width = 60 + addLen;
 
     let options = [];
@@ -22,19 +19,15 @@ export default (props) => {
             return <Route key={opt.name} render={
                 ({ history }) =>
                     <option
-                        key={opt.name}
+                        key={opt.name} value={opt.name}
                         onClick={() => { if (props.isTopic) {
                             history.push('/topics/' + opt.slug)
                         }}}
-                        value={opt.name}
                     >{opt.name}</option> }
                   />
         });
         if (isDiffCategory) {
-            options.unshift(
-                <option key='topic0' className='topic_placeholder' value={''}>
-                    {''}</option>
-            )
+            options.unshift(<option key='topic0' className='topic_placeholder' value={''}>{''}</option>)
         }
     }
 
@@ -43,7 +36,9 @@ export default (props) => {
             <select
                 style={{'width': width}}
                 className='nav_dropdown_select'
-                onChange={(e) => {if (e.target.value) {props.handleSelection(e.target.value)}}}
+                onChange={(e) => {if (e.target.value) {
+                    props.handleSelection(e.target.value)
+                }}}
                 value={props.selectedOption}
             >
             {options}
