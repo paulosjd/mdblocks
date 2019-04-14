@@ -13,16 +13,20 @@ const TextSearchInput = (props) => {
         }
     };
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter' && props.textInput.length > 2) {
+            props.handleTextSubmit()
+        }
+    };
+
     return <React.Fragment>
         <input name='text_filter' type="text" placeholder="Enter text"
                className='text_filter'
                value={props.textInput}
                onChange={handleTextChange}
+               onKeyPress={handleKeyPress}
                onBlur={handleInputBlur}
                />
-        {/*<Link to="/about" >*/}
-        {/*<button type="button">About</button>*/}
-        {/*</Link>*/}
         <Button disabled={props.textInput.length < 3}
                 className='text_filter'
                 onClick={props.handleTextSubmit}

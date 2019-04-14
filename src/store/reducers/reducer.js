@@ -3,6 +3,7 @@ const initialState = {
     activeCategory: 'Python',
     allTopics: [],
     filteredTopics: [],
+    searchResults: [],
     mdContent: '',
     topicName: '',
     topicSlug: '',
@@ -30,6 +31,10 @@ const rootReducer = (state = initialState, action) => {
             setSlugFromTopic(newState);
             setCategoryFromTopic(newState);
             newState.pathname = window.location.pathname;
+            break;
+        case "SEARCH_RESULTS":
+            newState.searchResults = action.value;
+            newState.searchTextLoading = false;
             break;
         case "SET_PATHNAME":
             newState.pathname = window.location.pathname;

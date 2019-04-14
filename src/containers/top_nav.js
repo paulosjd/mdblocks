@@ -14,8 +14,6 @@ class TopNav extends Component {
 
     handleTextSubmit() {
         this.props.setSearchRedirect(true)
-
-        // this.props.fetchTextSearchResults(this.props.textInput.trim())
     }
 
     resetTextInput() {
@@ -111,7 +109,6 @@ const mapDispatchToProps = dispatch => {
         setTopicFromSlug: (slug) => dispatch(actionCreator.setTopicFromSlug(slug)),
         setPathname: (val) => dispatch(actionCreator.setPathname(val)),
         setTextInput: (val) => dispatch(actionCreator.setTextInput(val)),
-        fetchTextSearchResults: (val) => dispatch(actionCreator.fetchTextSearchResults(val)),
         setSearchRedirect: (val) => dispatch(actionCreator.setSearchRedirect(val)),
     };
 };

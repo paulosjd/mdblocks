@@ -10,11 +10,11 @@ class SearchResults extends React.Component {
         const text = this.props.match.params.text;
         this.props.setPathname();
         this.props.setSearchRedirect(false);
-        this.props.setLoading(true);
-        console.log(text)
         this.props.getSearchResults(text)
         console.log(this.props)
     }
+
+    // may need componenetdidupdate to see if new search made
 
     render() {
         if (this.props.isLoading) {
@@ -38,16 +38,16 @@ const mapStateToProps = state => {
         // mdContent: state.mdContent,
         categories: state.categories,
         isLoading: state.searchTextLoading,
+
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        // getSearchResults: (text) => dispatch(actionCreator.getSearchResults(text)),
+        getSearchResults: (text) => dispatch(actionCreator.getTextSearchResults(text)),
         setCategories: (slug) => dispatch(actionCreator.setCategories(slug)),
         setSearchRedirect: (val) => dispatch(actionCreator.setSearchRedirect(val)),
         setPathname: () => dispatch(actionCreator.setPathname()),
-        setLoading: (val) => dispatch(actionCreator.setSearchLoading(val)),
     };
 };
 

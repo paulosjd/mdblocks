@@ -27,17 +27,21 @@ export const getMarkdownContent = (slug) => {
     };
 };
 
-export const fetchTextSearchResults = (text) => {
+export const getTextSearchResults = (text) => {
     let url = 'http://127.0.0.1:8000/api/search/' + text;
-
+    console.log(url)
+    return dispatch => {
+        dispatch({type: "SET_SEARCH_LOADING", value: true });
+        fetch(url)
+            .then(response => response.json())
+            .then(obj => dispatch(
+                {type: 'SEARCH_RESULTS', value: obj.map(x => x.content)})
+            )
+    }
 };
 
 export const setSearchRedirect = (val) => {
     return { type: "SEARCH_REDIRECT", value: val }
-};
-
-export const setSearchLoading = (val) => {
-    return { type: "SET_SEARCH_LOADING", value: val }
 };
 
 export const setTopicFromSlug = (slug) => {
@@ -62,11 +66,5 @@ export const setCategory = (val) => {
 
 export const setTextInput = (val) => {
     return { type: 'SET_TEXT_INPUT', value: val}
-};
-
-export const loading = () => {
-    return {
-        type: "LOADING"
-    };
 };
 
