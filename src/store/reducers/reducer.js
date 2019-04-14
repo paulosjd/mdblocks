@@ -7,7 +7,8 @@ const initialState = {
     topicName: '',
     topicSlug: '',
     textInput: '',
-    pathname: 'window.location.pathname'
+    searchRedirect: false,
+    pathname: window.location.pathname
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -31,6 +32,9 @@ const rootReducer = (state = initialState, action) => {
             break;
         case "SET_PATHNAME":
             newState.pathname = window.location.pathname;
+            break;
+        case "SEARCH_REDIRECT":
+            newState.searchRedirect = action.value;
             break;
         case "TOPIC_FROM_SLUG":
             newState.topicSlug = action.value;

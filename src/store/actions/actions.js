@@ -27,6 +27,15 @@ export const getMarkdownContent = (slug) => {
     };
 };
 
+export const fetchTextSearchResults = (text) => {
+    let url = 'http://127.0.0.1:8000/api/search/' + text;
+
+};
+
+export const setSearchRedirect = (val) => {
+    return { type: "SEARCH_REDIRECT", value: val }
+};
+
 export const setTopicFromSlug = (slug) => {
     return { type: "TOPIC_FROM_SLUG", value: slug };
 };

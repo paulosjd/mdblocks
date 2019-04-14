@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect  } from 'react-router-dom';
 import { Navbar } from 'reactstrap';
 import NavDropdownSelect from "../components/nav_dropdown_select"
 import * as actionCreator from "../store/actions/actions";
@@ -9,11 +9,13 @@ import TextSearch from "../components/text_search"
 class TopNav extends Component {
 
     handleTextInput(text) {
-        this.props.setTextInput(text.trim())
+        this.props.setTextInput(text)
     }
 
     handleTextSubmit() {
-        console.log(this.props.textInput)
+        this.props.setSearchRedirect(true)
+
+        // this.props.fetchTextSearchResults(this.props.textInput.trim())
     }
 
     resetTextInput() {
@@ -31,6 +33,12 @@ class TopNav extends Component {
     }
 
     render() {
+        console.log(this.props.pathname)
+
+        if (this.props.searchRedirect) {
+            return <Redirect push to={"/search/" + this.props.textInput} />;
+        }
+
         const catOptions = this.props.categories.map(cat => {
             return {name: cat, slug: cat.toLowerCase().replace(' ', '_')}
         });
@@ -66,6 +74,7 @@ class TopNav extends Component {
                         selectedOption={this.props.activeCategory}
                         options={catOptions}
                         handleSelection={this.handleCategorySelection.bind(this)}
+                        atSearchPage={window.location.href.includes('search/')}
                     />
                     {topicSelect()}
                     <Link className="nav_link_index" to="/" exact='true' >Index</Link>
@@ -89,6 +98,7 @@ const mapStateToProps = state => {
         activeCategory: state.activeCategory,
         pathname: state.pathname,
         textInput: state.textInput,
+        searchRedirect: state.searchRedirect,
     };
 };
 
@@ -98,8 +108,10 @@ const mapDispatchToProps = dispatch => {
         setCategory: (val) => dispatch(actionCreator.setCategory(val)),
         topicsByCategory: () => dispatch(actionCreator.topicsByCategory()),
         setTopicFromSlug: (slug) => dispatch(actionCreator.setTopicFromSlug(slug)),
-        setPathname: () => dispatch(actionCreator.setPathname()),
+        setPathname: (val) => dispatch(actionCreator.setPathname(val)),
         setTextInput: (val) => dispatch(actionCreator.setTextInput(val)),
+        fetchTextSearchResults: (val) => dispatch(actionCreator.fetchTextSearchResults(val)),
+        setSearchRedirect: (val) => dispatch(actionCreator.setSearchRedirect(val)),
     };
 };
 
