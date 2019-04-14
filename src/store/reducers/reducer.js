@@ -8,6 +8,7 @@ const initialState = {
     topicSlug: '',
     textInput: '',
     searchRedirect: false,
+    searchTextLoading: false,
     pathname: window.location.pathname
 };
 
@@ -35,6 +36,9 @@ const rootReducer = (state = initialState, action) => {
             break;
         case "SEARCH_REDIRECT":
             newState.searchRedirect = action.value;
+            break;
+        case "SET_SEARCH_LOADING":
+            newState.searchTextLoading = action.value;
             break;
         case "TOPIC_FROM_SLUG":
             newState.topicSlug = action.value;

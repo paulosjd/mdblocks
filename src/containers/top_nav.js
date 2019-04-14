@@ -33,7 +33,6 @@ class TopNav extends Component {
     }
 
     render() {
-        console.log(this.props.pathname)
 
         if (this.props.searchRedirect) {
             return <Redirect push to={"/search/" + this.props.textInput} />;
@@ -44,11 +43,13 @@ class TopNav extends Component {
         });
 
         const topicSelect = () => {
-            if (this.props.topicName && this.props.pathname !== '/') {
+            if (this.props.pathname.includes('search/') ||
+                (this.props.topicName && this.props.pathname !== '/')) {
                 return <NavDropdownSelect
                     isTopic={true}
                     selectedOption={this.props.topicName}
                     options={this.props.filteredTopics}
+                    atSearchPage={this.props.pathname.includes('search/')}
                     handleSelection={this.handleTopicSelection.bind(this)}/>
             }
         };
@@ -74,7 +75,7 @@ class TopNav extends Component {
                         selectedOption={this.props.activeCategory}
                         options={catOptions}
                         handleSelection={this.handleCategorySelection.bind(this)}
-                        atSearchPage={window.location.href.includes('search/')}
+                        atSearchPage={this.props.pathname.includes('search/')}
                     />
                     {topicSelect()}
                     <Link className="nav_link_index" to="/" exact='true' >Index</Link>

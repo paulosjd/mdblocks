@@ -10,11 +10,11 @@ export default (props) => {
     if (isDiffCategory && optionNames.length > 0) {
         const maxNameLen = Math.max(...optionNames.map(x => x.length));
         addLen = (maxNameLen * 4);
-    } else addLen = props.selectedOption ? props.selectedOption.length * 4 : 20;
+    } else addLen = props.selectedOption ? props.selectedOption.length * 6 : 20;
     const width = 60 + addLen;
 
     let options = [];
-    if (props.selectedOption) {
+    if (props.selectedOption || props.atSearchPage) {
         options = props.options.map(opt => {
             return <Route key={opt.name} render={
                 ({ history }) =>
@@ -27,7 +27,9 @@ export default (props) => {
                   />
         });
         if (isDiffCategory) {
-            options.unshift(<option key='topic0' className='topic_placeholder' value={''}>{''}</option>)
+            options.unshift(
+                <option key='topic0' className='topic_placeholder' value={''}>{''}</option>
+            )
         }
     }
 

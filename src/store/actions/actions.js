@@ -36,6 +36,10 @@ export const setSearchRedirect = (val) => {
     return { type: "SEARCH_REDIRECT", value: val }
 };
 
+export const setSearchLoading = (val) => {
+    return { type: "SET_SEARCH_LOADING", value: val }
+};
+
 export const setTopicFromSlug = (slug) => {
     return { type: "TOPIC_FROM_SLUG", value: slug };
 };

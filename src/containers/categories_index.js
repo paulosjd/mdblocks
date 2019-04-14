@@ -16,8 +16,6 @@ class CategoriesIndex extends Component {
     }
 
     render() {
-        console.log(this.props.pathname)
-
         return (
             <div className='CategoriesIndexpage' >
             <Container>
