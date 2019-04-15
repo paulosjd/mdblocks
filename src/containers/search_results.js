@@ -1,20 +1,20 @@
 import { MarkdownPreview } from 'react-marked-markdown';
 import React from 'react';
 import { connect } from "react-redux";
-import { Spinner } from 'reactstrap';
+import { Container, Row, Col, ListGroup, ListGroupItem, Spinner } from 'reactstrap';
 import * as actionCreator from "../store/actions/actions";
 
 class SearchResults extends React.Component {
 
     componentDidMount() {
-        const text = this.props.match.params.text;
-        this.props.setPathname();
+        this.props.setSearchLoading()
         this.props.setSearchRedirect(false);
-        this.props.getSearchResults(text)
-        console.log(this.props)
+        this.props.getSearchResults(this.props.match.params.text);
     }
 
     // may need componenetdidupdate to see if new search made
+
+
 
     render() {
         if (this.props.isLoading) {
@@ -24,21 +24,37 @@ class SearchResults extends React.Component {
                 </div>
             );
         }
-        return (
-            <div className='topic_page'>
-                {/*<MarkdownPreview value={this.props.mdContent}/>*/}
-                <p>Test</p>
-            </div>
-        )
+        // props.searchResults
+        {/*<div className='topic_page'>*/}
+        {/*/!*<MarkdownPreview value={this.props.mdContent}/>*!/*/}
+        {/*<p>Test</p>*/}
+        {/*</div>*/}
+        if (this.props.searchResults.length > 0) {
+            return (
+                <div className='topic_page'>
+                <ListGroup>
+                    {this.props.searchResults.map((obj, ind) => {
+                        return (
+                            <ListGroupItem
+                                tag="a" key={ind}
+                                active={false} action
+                            >{obj.content}
+                            </ListGroupItem>)
+                    })}
+                </ListGroup></div>)
+        } else return <div className='topic_page'><p>No results</p></div>
+
+
+
+
     }
 }
 
 const mapStateToProps = state => {
     return {
-        // mdContent: state.mdContent,
         categories: state.categories,
         isLoading: state.searchTextLoading,
-
+        searchResults: state.searchResults,
     };
 };
 
@@ -48,6 +64,7 @@ const mapDispatchToProps = dispatch => {
         setCategories: (slug) => dispatch(actionCreator.setCategories(slug)),
         setSearchRedirect: (val) => dispatch(actionCreator.setSearchRedirect(val)),
         setPathname: () => dispatch(actionCreator.setPathname()),
+        setSearchLoading: () => dispatch(actionCreator.setSearchLoading()),
     };
 };
 

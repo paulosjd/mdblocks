@@ -8,8 +8,8 @@ export const setCategories = () => {
                     return {topics: cat.topics, catName: cat.name}
                 });
                 let categories = cats.map(cat => cat.name);
-                dispatch({type: 'SET_CATEGORIES', value: {categories, allTopics}});
-                dispatch({type: 'CAT_TOPICS'})
+                dispatch({ type: 'SET_CATEGORIES', value: {categories, allTopics} });
+                dispatch({ type: 'CAT_TOPICS' })
             })
     }
 };
@@ -22,22 +22,25 @@ export const getMarkdownContent = (slug) => {
             .then(response => response.json())
             .then(obj => {
                 obj.forEach(obj => mdContent = mdContent + obj.content);
-                dispatch({type: 'MD_CONTENT', value: mdContent})
+                dispatch({ type: 'MD_CONTENT', value: mdContent })
             })
     };
 };
 
 export const getTextSearchResults = (text) => {
     let url = 'http://127.0.0.1:8000/api/search/' + text;
-    console.log(url)
+    console.log(text)
     return dispatch => {
-        dispatch({type: "SET_SEARCH_LOADING", value: true });
         fetch(url)
             .then(response => response.json())
             .then(obj => dispatch(
-                {type: 'SEARCH_RESULTS', value: obj.map(x => x.content)})
+                { type: 'SEARCH_RESULTS', value: obj })
             )
     }
+};
+
+export const setSearchLoading = () => {
+    return ( {type: "SET_SEARCH_LOADING", value: true } )
 };
 
 export const setSearchRedirect = (val) => {

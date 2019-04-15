@@ -21,6 +21,7 @@ class TopNav extends Component {
     }
 
     handleTopicSelection(topic) {
+        this.props.setSearchRedirect(false);
         this.props.setTopic({topicName: topic, allTopics: this.props.allTopics});
         this.props.setPathname()
     }
@@ -33,7 +34,11 @@ class TopNav extends Component {
     render() {
 
         if (this.props.searchRedirect) {
-            return <Redirect push to={"/search/" + this.props.textInput} />;
+            if (!this.props.pathname.includes('search/')) {
+                return <Redirect push to={"/search/" + this.props.textInput}/>;
+            } else if (this.props.textInput.length > 2 ) {
+                this.props.getSearchResults(this.props.textInput)
+            }
         }
 
         const catOptions = this.props.categories.map(cat => {
@@ -110,6 +115,8 @@ const mapDispatchToProps = dispatch => {
         setPathname: (val) => dispatch(actionCreator.setPathname(val)),
         setTextInput: (val) => dispatch(actionCreator.setTextInput(val)),
         setSearchRedirect: (val) => dispatch(actionCreator.setSearchRedirect(val)),
+        getSearchResults: (text) => dispatch(actionCreator.getTextSearchResults(text)),
+        setSearchLoading: () => dispatch(actionCreator.setSearchLoading()),
     };
 };
 

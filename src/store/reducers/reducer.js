@@ -28,9 +28,9 @@ const rootReducer = (state = initialState, action) => {
         case "SET_TOPIC":
             newState.topicName = action.value.topicName;
             newState.allTopics = action.value.allTopics;
+            newState.textInput = '';
             setSlugFromTopic(newState);
             setCategoryFromTopic(newState);
-            newState.pathname = window.location.pathname;
             break;
         case "SEARCH_RESULTS":
             newState.searchResults = action.value;
@@ -63,6 +63,7 @@ const rootReducer = (state = initialState, action) => {
     if (newState.topicSlug && newState.allTopics.length > 0 && !newState.topicName) {
         setTopicFromSlug(newState)
     }
+    newState.pathname = window.location.pathname;
     return newState;
 };
 

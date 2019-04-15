@@ -26,7 +26,7 @@ export default (props) => {
                     >{opt.name}</option> }
                   />
         });
-        if (isDiffCategory) {
+        if (isDiffCategory || window.location.href.includes('search/')) {
             options.unshift(
                 <option key='topic0' className='topic_placeholder' value={''}>{''}</option>
             )
@@ -41,7 +41,7 @@ export default (props) => {
                 onChange={(e) => {if (e.target.value) {
                     props.handleSelection(e.target.value)
                 }}}
-                value={props.selectedOption}
+                value={props.atSearchPage && props.isTopic ? '' : props.selectedOption}
             >
             {options}
             </select>
