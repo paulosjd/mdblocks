@@ -29,7 +29,6 @@ export const getMarkdownContent = (slug) => {
 
 export const getTextSearchResults = (text) => {
     let url = 'http://127.0.0.1:8000/api/search/' + text;
-    console.log(text)
     return dispatch => {
         fetch(url)
             .then(response => response.json())
@@ -38,6 +37,14 @@ export const getTextSearchResults = (text) => {
             )
     }
 };
+
+export const setResultIndex = (val) => {
+    return ( {type: "SET_RESULT_INDEX", value: val } )
+};
+
+// export const setRedirectBack = () => {
+//     return ( {type: "SET_RESULT_INDEX", value: val } )
+// };
 
 export const setSearchLoading = () => {
     return ( {type: "SET_SEARCH_LOADING", value: true } )

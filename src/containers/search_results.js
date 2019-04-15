@@ -1,22 +1,26 @@
-import { MarkdownPreview } from 'react-marked-markdown';
 import React from 'react';
+import { MarkdownPreview } from 'react-marked-markdown';
 import { connect } from "react-redux";
-import { Container, Row, Col, ListGroup, ListGroupItem, Spinner } from 'reactstrap';
+import { ListGroup, ListGroupItem, Spinner } from 'reactstrap';
 import * as actionCreator from "../store/actions/actions";
+import {Route} from "react-router-dom";
 
 class SearchResults extends React.Component {
 
     componentDidMount() {
-        this.props.setSearchLoading()
+        this.props.setSearchLoading();
         this.props.setSearchRedirect(false);
         this.props.getSearchResults(this.props.match.params.text);
     }
 
-    // may need componenetdidupdate to see if new search made
-
-
+    handleResultClick(resultsIndex) {
+        this.props.setResultIndex(resultsIndex);
+    }
 
     render() {
+
+        console.log(this.props.selectedResultInd)
+
         if (this.props.isLoading) {
             return (
                 <div className='topic_page'>
@@ -24,29 +28,39 @@ class SearchResults extends React.Component {
                 </div>
             );
         }
-        // props.searchResults
-        {/*<div className='topic_page'>*/}
-        {/*/!*<MarkdownPreview value={this.props.mdContent}/>*!/*/}
-        {/*<p>Test</p>*/}
-        {/*</div>*/}
+        // if (this.props.selectedResultInd) {
+        //
+        // }
+
+
+
         if (this.props.searchResults.length > 0) {
             return (
                 <div className='topic_page'>
                 <ListGroup>
                     {this.props.searchResults.map((obj, ind) => {
+                        const maxLength = 640;
+                        let truncMd = obj.content.substr(0, maxLength);
+                        truncMd = truncMd.substr(0, Math.min(truncMd.length, truncMd.lastIndexOf(" ")));
                         return (
                             <ListGroupItem
                                 tag="a" key={ind}
+                                // href={this.props.pathname.concat('/', ind)}
                                 active={false} action
-                            >{obj.content}
+                                // onClick={() => { history.push(this.props.pathname.concat('/', ind)) }}
+                                // onClick={() => this.handleResultClick(ind) }
+                            >        <Route key={ind} render={
+                                ({ history }) =>
+                                        <div onClick={() => { history.push(this.props.pathname.concat('/', ind)) }}>
+                                            <MarkdownPreview value={truncMd + ' ...'}/>
+                                            </div> }
+                            />
+
                             </ListGroupItem>)
                     })}
-                </ListGroup></div>)
+                </ListGroup>
+                </div>)
         } else return <div className='topic_page'><p>No results</p></div>
-
-
-
-
     }
 }
 
@@ -55,6 +69,8 @@ const mapStateToProps = state => {
         categories: state.categories,
         isLoading: state.searchTextLoading,
         searchResults: state.searchResults,
+        selectedResultInd: state.searchResultIndex,
+        pathname: state.pathname,
     };
 };
 
@@ -65,6 +81,7 @@ const mapDispatchToProps = dispatch => {
         setSearchRedirect: (val) => dispatch(actionCreator.setSearchRedirect(val)),
         setPathname: () => dispatch(actionCreator.setPathname()),
         setSearchLoading: () => dispatch(actionCreator.setSearchLoading()),
+        setResultIndex: (val) => dispatch(actionCreator.setResultIndex(val))
     };
 };
 

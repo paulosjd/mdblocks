@@ -13,7 +13,6 @@ class TopicPage extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.topicSlug !== this.props.topicSlug) {
-            console.log('did upate!!')
             this.props.getMarkdownContent(this.props.topicSlug)
         }
     }

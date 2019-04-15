@@ -10,6 +10,7 @@ const initialState = {
     textInput: '',
     searchRedirect: false,
     searchTextLoading: false,
+    searchResultIndex: null,
     pathname: window.location.pathname
 };
 
@@ -35,6 +36,9 @@ const rootReducer = (state = initialState, action) => {
         case "SEARCH_RESULTS":
             newState.searchResults = action.value;
             newState.searchTextLoading = false;
+            break;
+        case "SET_RESULT_INDEX":
+            newState.searchResultIndex = action.value;
             break;
         case "SET_PATHNAME":
             newState.pathname = window.location.pathname;
@@ -87,6 +91,5 @@ const setCategoryFromTopic = (newState) => {
         newState.activeCategory = obj.catName
     }})
 };
-
 
 export default rootReducer;

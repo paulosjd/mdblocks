@@ -68,12 +68,6 @@ class TopNav extends Component {
         if (this.props.pathname !== '/') {
             return (
                 <Navbar color="light" light expand="md">
-                    {/*<Link to="/about" >*/}
-                    {/*<button type="button">About</button>*/}
-                    {/*</Link>*/}
-                    {/*<NavLink to="/user/peter" exact activeStyle={*/}
-                    {/*{ color:'green' }*/}
-                    {/*}>User Peter</NavLink>*/}
                     <NavDropdownSelect
                         selectedOption={this.props.activeCategory}
                         options={catOptions}

@@ -4,7 +4,7 @@ body {
 }
 img {
   display: block;
-  width:100%;
+  width:80%;
   height: auto;
 }
 .navbar {
@@ -15,9 +15,6 @@ img {
 }
 .nav_link_index {
   margin-left: 24px;
-}
-.homepage {
-  margin-top: 16px;
 }
 ul.list-group {
   margin-top: 15px;
@@ -59,9 +56,6 @@ h2 {
 }
 .link:hover span{
   font-weight:bold;
-}
-.cats_topics_dropdowns {
-  margin-left: 30px;
 }
 input[type=text], select {
   border: 5px solid white;

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Link, NavLink, Redirect, Prompt} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import Route from 'react-router-dom/Route';
 import { connect } from "react-redux";
 import CategoriesIndex from "./containers/categories_index"
 import TopNav from "./containers/top_nav";
 import TopicPage from './containers/topic_page'
+import ResultDetail from './containers/result_detail'
 import SearchResults from './containers/search_results'
 import * as actionCreator from "./store/actions/actions";
 
@@ -22,9 +23,11 @@ class App extends Component {
             <Route path="/" exact strict
                    render={(props) => <CategoriesIndex {...props} />}
             />
-            <Route path="/about" exact strict render={() => {return (<h1>Welcome About</h1>)}}/>
             <Route path="/search/:text" exact strict
                    render={(props) => <SearchResults {...props} />}
+            />
+            <Route path="/search/:text/:index" exact strict
+                   render={(props) => <ResultDetail {...props} />}
             />
             <Route path="/topics/:slug" exact strict
                    render={(props) => <TopicPage {...props} />}
