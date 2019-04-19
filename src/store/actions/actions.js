@@ -42,10 +42,6 @@ export const setResultIndex = (val) => {
     return ( {type: "SET_RESULT_INDEX", value: val } )
 };
 
-// export const setRedirectBack = () => {
-//     return ( {type: "SET_RESULT_INDEX", value: val } )
-// };
-
 export const setSearchLoading = () => {
     return ( {type: "SET_SEARCH_LOADING", value: true } )
 };
@@ -77,4 +73,3 @@ export const setCategory = (val) => {
 export const setTextInput = (val) => {
     return { type: 'SET_TEXT_INPUT', value: val}
 };
-

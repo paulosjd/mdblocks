@@ -13,13 +13,7 @@ class SearchResults extends React.Component {
         this.props.getSearchResults(this.props.match.params.text);
     }
 
-    handleResultClick(resultsIndex) {
-        this.props.setResultIndex(resultsIndex);
-    }
-
     render() {
-
-        console.log(this.props.selectedResultInd)
 
         if (this.props.isLoading) {
             return (
@@ -28,12 +22,6 @@ class SearchResults extends React.Component {
                 </div>
             );
         }
-        // if (this.props.selectedResultInd) {
-        //
-        // }
-
-
-
         if (this.props.searchResults.length > 0) {
             return (
                 <div className='topic_page'>
@@ -43,19 +31,13 @@ class SearchResults extends React.Component {
                         let truncMd = obj.content.substr(0, maxLength);
                         truncMd = truncMd.substr(0, Math.min(truncMd.length, truncMd.lastIndexOf(" ")));
                         return (
-                            <ListGroupItem
-                                tag="a" key={ind}
-                                // href={this.props.pathname.concat('/', ind)}
-                                active={false} action
-                                // onClick={() => { history.push(this.props.pathname.concat('/', ind)) }}
-                                // onClick={() => this.handleResultClick(ind) }
-                            >        <Route key={ind} render={
-                                ({ history }) =>
+                            <ListGroupItem tag="a" key={ind} active={false} action >
+                                <Route key={ind}
+                                   render={ ({ history }) =>
                                         <div onClick={() => { history.push(this.props.pathname.concat('/', ind)) }}>
                                             <MarkdownPreview value={truncMd + ' ...'}/>
-                                            </div> }
-                            />
-
+                                        </div> }
+                                   />
                             </ListGroupItem>)
                     })}
                 </ListGroup>

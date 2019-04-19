@@ -6,19 +6,7 @@ import {Redirect} from "react-router-dom";
 
 class ResultDetail extends React.Component {
 
-    componentDidMount() {
-        this.props.setPathname();
-
-        const resultIndex = this.props.match.params.index;
-
-        // const slug = this.props.match.params.slug;
-        // this.props.setTopicFromSlug(slug);
-        // this.props.getMarkdownContent(slug);
-    }
-
     render() {
-        console.log(this.props.match.params.index)
-        console.log(this.props.searchResults)
 
         if (this.props.searchResults[this.props.match.params.index]) {
             return (
@@ -34,8 +22,6 @@ class ResultDetail extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        // mdContent: state.mdContent,
-        // topicSlug: state.topicSlug,
         searchResults: state.searchResults,
     };
 };
