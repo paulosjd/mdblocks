@@ -1,5 +1,5 @@
 export const setCategories = () => {
-    let url = 'http://127.0.0.1:8000/api/categories';
+    let url = 'http://urlpath/api/categories';
     return dispatch => {
         fetch(url)
             .then(response => response.json())
@@ -15,7 +15,7 @@ export const setCategories = () => {
 };
 
 export const getMarkdownContent = (slug) => {
-    let url = 'http://127.0.0.1:8000/api/topics/' + slug;
+    let url = 'http://urlpath/api/topics/' + slug;
     let mdContent = '';
     return dispatch => {
         fetch(url)
@@ -28,7 +28,7 @@ export const getMarkdownContent = (slug) => {
 };
 
 export const getTextSearchResults = (text) => {
-    let url = 'http://127.0.0.1:8000/api/search/' + text;
+    let url = 'http://urlpath/api/search/' + text;
     return dispatch => {
         fetch(url)
             .then(response => response.json())

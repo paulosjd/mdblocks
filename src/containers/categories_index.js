@@ -16,13 +16,18 @@ class CategoriesIndex extends Component {
     }
 
     render() {
+        const orderByName = (a, b) => {
+            var textA = a.toUpperCase();
+            var textB = b.toUpperCase();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        };
         return (
             <div className='CategoriesIndexpage' >
             <Container>
             <Row>
             <Col xs="4" >
                 <ListGroup>
-                    {this.props.categories.map(name => {
+                    {this.props.categories.sort().map(name => {
                         return (
                         <ListGroupItem
                             className={'cats'} tag="a" key={name}
@@ -37,7 +42,8 @@ class CategoriesIndex extends Component {
             </Col>
             <Col xs="8">
                 <ListGroup>
-                    {this.props.filteredTopics.map((obj, ind) => {
+                    {this.props.filteredTopics.sort((a, b) => {
+                        return (a.name < b.name) ? -1 : (a.name > b.name) ? 1 : 0}).map((obj, ind) => {
                         return (
                             <ListGroupItem
                                 tag="a" href={'/topics/' + obj.slug} key={ind}
