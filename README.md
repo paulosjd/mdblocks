@@ -1,4 +1,4 @@
-(Demo app])https://notes.paulja.me/) which consumes data served by a REST API.
+[Demo app](https://notes.paulja.me/) which consumes data served by a REST API.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
