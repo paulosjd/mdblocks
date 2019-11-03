@@ -1,4 +1,4 @@
-React app which consumes air quality data served by a REST [API](https://github.com/paulosjd/aurnapi). [Live demo](https://notes.paulja.me/).
+React app which consumes data served by a REST API. [Demo](https://notes.paulja.me/).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
